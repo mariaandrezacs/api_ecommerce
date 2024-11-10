@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from flask_login import UserMixin, login_user, LoginManager, login_required
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '@senha123'
@@ -31,7 +31,6 @@ def load_user(user_id):
     return User.query.get(int(user_id)) 
 
 
-
 @app.route('/login', methods=["POST"])
 def login():
     data = request.json
@@ -41,6 +40,12 @@ def login():
             return jsonify({"message": "Logged in successfully"})
     return jsonify({"message": "Unauthorized. Invalid credentials"}), 401
 
+
+@app.route('/logout', methods=["POST"])
+@login_required
+def logout():
+    logout_user()
+    return jsonify({"message": "Logged in successfully"})
 
 @app.route('/api/products/add', methods=["POST"])
 @login_required
