@@ -14,6 +14,16 @@ class Product(db.Model):
     price = db.Column(db.Float, nullable=False)
     description = db.Column(db.Text, nullable=True)
 
+@app.route('/api/products/add', methods=["POST"])
+def add_product():
+    data = request.json
+    if 'name' in data and 'price' in data: 
+        product = Product(name=data["name"], price=data["price"], description=data.get("description", ""))
+        db.session.add(product)
+        db.session.commit()
+        return jsonify({"message": "Product added successfully"})
+    return jsonify({"message": "Invalid product data"}), 400
+
 
 
 @app.route('/')
