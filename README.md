@@ -18,4 +18,3 @@ Esta é uma API de e-commerce desenvolvida em **Python** utilizando o framework 
 - **Python**  
 - **Flask**  
 - **SQLite (ou outra opção de banco de dados leve)**  
-- **Flask-RESTful** (para organização das rotas da API)  
