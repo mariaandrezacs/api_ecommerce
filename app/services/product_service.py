@@ -1,11 +1,16 @@
 from ..models.product import Product
 from ..extensions import db
 
+
 class ProductService:
     @staticmethod
     def list_all():
         products = Product.query.all()
         return [{"id": p.id, "name": p.name, "price": p.price} for p in products]
+
+    @staticmethod
+    def get_by_id(product_id):
+        return Product.query.get(product_id)
 
     @staticmethod
     def add(data):
@@ -15,7 +20,7 @@ class ProductService:
         product = Product(
             name=data["name"],
             price=data["price"],
-            description=data.get("description", "")
+            description=data.get("description", ""),
         )
         db.session.add(product)
         db.session.commit()

@@ -1,26 +1,34 @@
-from flask import Blueprint, jsonify, request
-from flask_login import login_user, logout_user, login_required
-from ..extensions import login_manager
-from ..models.user import User
-from ..services.user_service import UserService
+from flask_restx import Namespace, Resource, fields
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from app.services.user_service import UserService
 
-auth_bp = Blueprint("auth_bp", __name__, url_prefix="/auth")
+ns_auth = Namespace("auth", description="Autenticação de usuários")
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
+login_model = ns_auth.model(
+    "Login",
+    {
+        "username": fields.String(required=True, description="Nome de usuário"),
+        "password": fields.String(required=True, description="Senha"),
+    },
+)
 
-@auth_bp.route("/login", methods=["POST"])
-def login():
-    data = request.json
-    user = UserService.find_by_username(data.get("username"))
-    if user and data.get("password") == user.password:
-        login_user(user)
-        return jsonify({"message": "Logged in successfully"})
-    return jsonify({"message": "Invalid credentials"}), 401
 
-@auth_bp.route("/logout", methods=["POST"])
-@login_required
-def logout():
-    logout_user()
-    return jsonify({"message": "Logged out successfully"})
+@ns_auth.route("/login")
+class Login(Resource):
+    def post(self):
+        data = ns_auth.payload
+        user = UserService.find_by_username(data.get("username"))
+        if user and data.get("password") == user.password:
+            access_token = create_access_token(identity=str(user.id))
+            return {"access_token": access_token}
+        ns_auth.abort(401, "Invalid credentials")
+
+
+@ns_auth.route("/me")
+class Profile(Resource):
+    @jwt_required()
+    def get(self):
+        """Retorna os dados do usuário autenticado"""
+        user_id = get_jwt_identity()
+        user = UserService.get_by_id(user_id)
+        return {"id": user.id, "username": user.username}
