@@ -1,3 +1,15 @@
-swagger.yaml
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+
+# Database
 /instance/ecommerce.db
-/__pycache__
+
+# VS Code settings
+.vscode/settings.json
+
+# Optional: ignore all pycache in app subfolders (recursivo)
+app/**/__pycache__/
