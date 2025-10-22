@@ -1,11 +1,10 @@
-from .auth_routes import auth_bp
-from .product_routes import product_bp
-from .cart_routes import cart_bp
-from .users_routes import user_bp
+from .auth_routes import ns_auth
+from .product_routes import ns_product
+from .cart_routes import ns_cart
+from .users_routes import ns_user
 
-
-def register_blueprints(app):
-    app.register_blueprint(auth_bp)
-    app.register_blueprint(product_bp)
-    app.register_blueprint(cart_bp)
-    app.register_blueprint(user_bp)
+def register_namespaces(api):
+    api.add_namespace(ns_auth, path="/ns_auth")
+    api.add_namespace(ns_user, path="/users")
+    api.add_namespace(ns_product, path="/products")
+    api.add_namespace(ns_cart, path="/cart")

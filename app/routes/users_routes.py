@@ -1,32 +1,47 @@
-from flask_login import login_required
-from flask import Blueprint, request, jsonify
+from flask_restx import Namespace, Resource, fields
 from app.services.user_service import UserService
 
+# Criar Namespace
+ns_user = Namespace("users", description="Gerenciamento de usuários")
 
-user_bp = Blueprint("user_bp", __name__, url_prefix="/api/users")
-
-
-@user_bp.route("/", methods=["GET"])
-@login_required
-def list_users():
-    users = UserService.list_users()
-    return jsonify([{"id": u.id, "username": u.username} for u in users])
-
-
-@user_bp.route("/create", methods=["POST"])
-
-def create_user():
-    data = request.json
-    try:
-        user = UserService.create_user(data["username"], data["password"])
-        return jsonify({"id": user.id, "username": user.username})
-    except ValueError as e:
-        return jsonify({"message": str(e)}), 400
+# Modelo de dados para documentação automática
+user_model = ns_user.model(
+    "User",
+    {
+        "username": fields.String(required=True, description="Nome de usuário"),
+        "password": fields.String(required=True, description="Senha do usuário"),
+    },
+)
 
 
-@user_bp.route("/delete/<int:user_id>", methods=["DELETE"])
-@login_required
-def delete_user(user_id):
-    if UserService.delete_user(user_id):
-        return jsonify({"message": "Usuário deletado"})
-    return jsonify({"message": "Usuário não encontrado"}), 404
+# Endpoint para listar usuários
+@ns_user.route("/")
+class UserList(Resource):
+    def get(self):
+        """Lista todos os usuários"""
+        users = UserService.list_users()
+        return [{"id": u.id, "username": u.username} for u in users]
+
+
+# Endpoint para criar usuário
+@ns_user.route("/create")
+class UserCreate(Resource):
+    @ns_user.expect(user_model)
+    def post(self):
+        """Cria um novo usuário"""
+        data = ns_user.payload
+        try:
+            user = UserService.create_user(data["username"], data["password"])
+            return {"id": user.id, "username": user.username}
+        except ValueError as e:
+            ns_user.abort(400, str(e))
+
+
+# Endpoint para deletar usuário
+@ns_user.route("/delete/<int:user_id>")
+class UserDelete(Resource):
+    def delete(self, user_id):
+        """Deleta um usuário pelo ID"""
+        if UserService.delete_user(user_id):
+            return {"message": "Usuário deletado"}
+        ns_user.abort(404, "Usuário não encontrado")
