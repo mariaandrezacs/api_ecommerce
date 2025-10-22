@@ -77,7 +77,7 @@ http://127.0.0.1:5000/docs
 1. Clonar o repositório
 
 ```bash
-git clone <url-do-repo>
+git clone https://github.com/mariaandrezacs/api_ecommerce.git
 ```
 
 2. Criar e ativar o ambiente virtual:
