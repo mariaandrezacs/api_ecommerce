@@ -32,10 +32,6 @@ Esta é uma API de e-commerce desenvolvida em **Python** utilizando o framework 
 - **Python 3.12**
 - **Flask** (Web framework)
 - **Flask-RESTX** (API + Swagger Docs)
-- **Flask-JWT-Extended** (Autenticação via JWT)
-- **Flask-Login** (Gerenciamento de sessão)
-- **Flask-CORS** (Permite requisições cross-origin)
-- **SQLAlchemy** (ORM para banco de dados)
 - **SQLite** (Banco de dados leve para desenvolvimento)
 
 ## 📌 Endpoints Principais
@@ -52,19 +48,19 @@ Esta é uma API de e-commerce desenvolvida em **Python** utilizando o framework 
 
 ### Carrinho
 
-| Método | Endpoint                         | Descrição                       |
-| ------ | -------------------------------- | ------------------------------- |
-| GET    | /api/v1/cart/                    | Visualiza o carrinho do usuário |
-| POST   | /api/v1/cart/add/<product_id>    | Adiciona um item ao carrinho    |
-| DELETE | /api/v1/cart/remove/<product_id> | Remove um item do carrinho      |
-| POST   | /api/v1/cart/checkout            | Finaliza a compra               |
+| Método | Endpoint                  | Descrição                       |
+| ------ | ------------------------- | ------------------------------- |
+| GET    | /api/v1/cart/             | Visualiza o carrinho do usuário |
+| POST   | /api/v1/cart/<product_id> | Adiciona um item ao carrinho    |
+| DELETE | /api/v1/cart/<product_id> | Remove um item do carrinho      |
+| POST   | /api/v1/cart/             | Finaliza a compra               |
 
 ### Autenticação
 
-| Método | Endpoint            | Descrição         |
-| ------ | ------------------- | ----------------- |
-| POST   | /api/v1/auth/login  | Login de usuário  |
-| POST   | /api/v1/auth/logout | Logout de usuário |
+| Método | Endpoint      | Descrição         |
+| ------ | ------------- | ----------------- |
+| POST   | /api/v1/auth/ | Login de usuário  |
+| POST   | /api/v1/auth/ | Logout de usuário |
 
 ## 📖 Documentação
 
