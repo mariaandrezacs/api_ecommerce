@@ -24,7 +24,7 @@ class UserList(Resource):
 
 
 # Endpoint para criar usuário
-@ns_user.route("/create")
+@ns_user.route("/")
 class UserCreate(Resource):
     @ns_user.expect(user_model)
     def post(self):
@@ -38,7 +38,7 @@ class UserCreate(Resource):
 
 
 # Endpoint para deletar usuário
-@ns_user.route("/delete/<int:user_id>")
+@ns_user.route("/<int:user_id>")
 class UserDelete(Resource):
     def delete(self, user_id):
         """Deleta um usuário pelo ID"""
