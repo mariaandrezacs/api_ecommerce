@@ -4,7 +4,7 @@ from .cart_routes import ns_cart
 from .users_routes import ns_user
 
 def register_namespaces(api):
-    api.add_namespace(ns_auth, path="/ns_auth")
+    api.add_namespace(ns_auth, path="/auth")
     api.add_namespace(ns_user, path="/users")
     api.add_namespace(ns_product, path="/products")
     api.add_namespace(ns_cart, path="/cart")
