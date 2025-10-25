@@ -14,7 +14,7 @@ class Cart(Resource):
         return CartService.view_cart(user_id)
 
 
-@ns_cart.route("/add/<int:product_id>")
+@ns_cart.route("/<int:product_id>")
 class AddToCart(Resource):
     @jwt_required()
     def post(self, product_id):
@@ -22,7 +22,7 @@ class AddToCart(Resource):
         return CartService.add_item(user_id, product_id)
 
 
-@ns_cart.route("/remove/<int:product_id>")
+@ns_cart.route("/<int:product_id>")
 class RemoveFromCart(Resource):
     @jwt_required()
     def delete(self, product_id):
@@ -30,7 +30,7 @@ class RemoveFromCart(Resource):
         return CartService.remove_item(user_id, product_id)
 
 
-@ns_cart.route("/checkout")
+@ns_cart.route("/")
 class Checkout(Resource):
     @jwt_required()
     def post(self):
