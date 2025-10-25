@@ -64,7 +64,7 @@ Esta é uma API de e-commerce desenvolvida em **Python** utilizando o framework 
 
 ## 📖 Documentação
 
-A API possui documentação automática via **Swagger**. Acesse:  
+A API possui documentação automática via **Swagger**. Acesse:
 http://127.0.0.1:5000/docs
 
 

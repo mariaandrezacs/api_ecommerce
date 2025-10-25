@@ -1,5 +1,5 @@
-from ..models.product import Product
 from ..extensions import db
+from ..models.product import Product
 
 
 class ProductService:

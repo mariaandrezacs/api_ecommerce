@@ -1,0 +1,34 @@
+# Bandit Configuration File
+
+include:
+  - "*.py"
+
+# Configurações de verificaçã
+tests:
+  - B301  # Uso inseguro de pickle
+  - B303  # Uso de md5 (não recomendado para hash seguro)
+  - B401  # Uso de subprocess sem shell seguro
+  - B601  # Uso inseguro de eval
+
+# Lista de testes a serem ignorados (caso necessário)
+skips:
+  - B101  # Uso de assert (útil em testes, mas pode ser perigoso em produção)
+  - B311  # Uso de random ao invés de secrets (Django pode usá-lo em algumas situações)
+
+#  Ignorar diretórios e arquivos específicos
+exclude_dirs:
+  - tests
+  - migrations
+  - contrib
+  - env
+  - venv
+  - "*/tests/*"
+  - "__pycache__"
+
+
+# Número de processos para executar em paralelo
+number_of_workers: 4
+
+# Configuração de severidade e confiança mínima
+severity: "HIGH"
+confidence: "HIGH"

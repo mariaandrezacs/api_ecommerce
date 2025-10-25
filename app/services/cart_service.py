@@ -1,6 +1,6 @@
+from ..extensions import db
 from ..models.cart_item import CartItem
 from ..models.product import Product
-from ..extensions import db
 
 
 class CartService:
