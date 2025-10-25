@@ -64,7 +64,7 @@ class ProductDetail(Resource):
         return ProductService.delete(product)
 
 
-@ns_product.route("/update/<int:product_id>")
+@ns_product.route("/<int:product_id>")
 class ProductUpdate(Resource):
     @ns_product.expect(product_model)
     def put(self, product_id):
@@ -76,7 +76,7 @@ class ProductUpdate(Resource):
         return ProductService.update(product, data)
 
 
-@ns_product.route("/delete/<int:product_id>")
+@ns_product.route("/<int:product_id>")
 class ProductDelete(Resource):
     def delete(self, product_id):
         product = ProductService.get_by_id(product_id)
