@@ -14,7 +14,7 @@ login_model = ns_auth.model(
 )
 
 
-@ns_auth.route("/login")
+@ns_auth.route("/")
 class Login(Resource):
     def post(self):
         data = ns_auth.payload
@@ -25,7 +25,7 @@ class Login(Resource):
         ns_auth.abort(401, "Invalid credentials")
 
 
-@ns_auth.route("/me")
+@ns_auth.route("/")
 class Profile(Resource):
     @jwt_required()
     def get(self):
