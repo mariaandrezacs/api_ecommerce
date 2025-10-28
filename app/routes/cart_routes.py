@@ -30,7 +30,7 @@ class RemoveFromCart(Resource):
         return CartService.remove_item(user_id, product_id)
 
 
-@ns_cart.route("/checkout")
+@ns_cart.route("/")
 class Checkout(Resource):
     @jwt_required()
     def post(self):

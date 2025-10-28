@@ -7,10 +7,7 @@ from app.extensions import db
 
 app = create_app()
 
-# Inicializa Flask-Migrate
 migrate = Migrate(app, db)
-
-# Cria CLI do Flask
 cli = FlaskGroup(app)
 
 if __name__ == "__main__":
