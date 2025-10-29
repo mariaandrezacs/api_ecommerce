@@ -20,7 +20,7 @@ class ProductService:
         product = Product(
             name=data["name"],
             price=data["price"],
-            description=data.get("description", ""),
+            # description=data.get("description", ""),
         )
         db.session.add(product)
         db.session.commit()
@@ -32,9 +32,9 @@ class ProductService:
             product.name = data["name"]
         if "price" in data:
             product.price = data["price"]
-        if "description" in data:
-            product.description = data["description"]
-        db.session.commit()
+        # if "description" in data:
+        #     product.description = data["description"]
+        # db.session.commit()
         return {"message": "Product updated successfully"}
 
     @staticmethod
