@@ -10,7 +10,7 @@ product_model = ns_product.model(
     {
         "name": fields.String(required=True),
         "price": fields.Float(required=True),
-        "stock": fields.Integer(required=True),
+        # "stock": fields.Integer(required=True),
     },
 )
 
