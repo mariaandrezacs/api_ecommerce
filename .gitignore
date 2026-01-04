@@ -13,3 +13,4 @@ venv/
 
 # Optional: ignore all pycache in app subfolders (recursivo)
 app/**/__pycache__/
+notas.md
